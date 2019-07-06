@@ -1,0 +1,28 @@
+---
+- hosts: nodes
+  become: yes
+  pre_tasks:
+    - name: stop docker
+      service: name=docker state=stopped
+      ignore_errors: yes
+  roles:
+    - ansible-role-storage-nodeprep
+  tasks:
+    - name: remove any existing docker-storage config file
+      file:
+        path: /etc/sysconfig/docker-storage
+        state: absent
+    - name: Ansible create new file with permissions example.
+      copy:
+        dest: /etc/sysconfig/docker-storage-setup
+        owner: root
+        group: root
+        mode: 0644
+        content: |
+          VG=docker-vg
+          CONTAINER_THINPOOL=docker-pool
+          STORAGE_DRIVER=devicemapper
+          DATA_SIZE="95%FREE"
+          EXTRA_DOCKER_STORAGE_OPTIONS="--storage-opt dm.basesize=3G"
+    - name: Reset container-storage-setup
+      command: container-storage-setup --reset

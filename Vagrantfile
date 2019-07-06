@@ -20,6 +20,15 @@ Vagrant.configure("2") do |config|
 		ansible.version         = "2.7.11"
 		ansible.inventory_path  = "hosts"
 		ansible.limit           = "all" # or only "nodes" group, etc.
+		ansible.playbook        = "docker-storage.yml"
+		ansible.verbose         = "vvv"
+		ansible.become          = true
+	end
+
+	config.vm.provision :ansible_local do |ansible|
+		ansible.version         = "2.7.11"
+		ansible.inventory_path  = "hosts"
+		ansible.limit           = "all" # or only "nodes" group, etc.
 		ansible.playbook        = "roles/openshift-ansible/playbooks/prerequisites.yml"
 		ansible.verbose         = "vvv"
 		ansible.become          = true

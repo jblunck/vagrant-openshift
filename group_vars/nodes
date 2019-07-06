@@ -1,0 +1,21 @@
+################################################################################
+# Node Preparation
+################################################################################
+
+# Use this when building a new cluster
+#nodeprep_option_delete_partitions: True
+# Make sure this option is in effect after building the cluster.
+nodeprep_option_delete_partitions: False
+
+nodeprep_option_create_partition: True
+nodeprep_option_create_lvm: True
+
+nodeprep_option_vg_group: docker-vg
+nodeprep_devices_pattern: 'nvme.*'
+nodeprep_directory: /mnt/local-storage/local-nvme
+nodeprep_prefix: ""
+
+# Vagrant: use 16GB
+nodeprep_lvs: ["lv1","lv2","lv3","lv4","lv5","lv6","lv7","lv8","lv9","lv10","lv11","lv12","lv13","lv14","lv15"]
+nodeprep_lvs_size: ["1G","1G","1G","1G","1G","1G","1G","1G","1G","1G","1G","1G","1G","1G","1G"]
+nodeprep_lvs_crypt_key: ["/opt/key_lv1","/opt/key_lv2","/opt/key_lv3","/opt/key_lv4","/opt/key_lv5","/opt/key_lv6","/opt/key_lv7","/opt/key_lv8","/opt/key_lv9","/opt/key_lv10","/opt/key_lv11","/opt/key_lv12","/opt/key_lv13","/opt/key_lv14","/opt/key_lv15"]
